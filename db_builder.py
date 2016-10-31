@@ -19,7 +19,7 @@ fObj = open("users.csv")
 d=csv.DictReader(fObj)
 #add csv into table
 for k in d:
-    p = "INSERT INTO USERS VALUES('%s',%s,%s)"%(k['author'],k['password'])
+    p = "INSERT INTO USERS VALUES('%s',%s)"%(k['author'],k['password'])
     c.execute(p)
     
 
@@ -56,6 +56,23 @@ for k in d:
     p = "INSERT INTO courses VALUES('%s',%s,%s)"%(k['story_id'],k['author'],k['content'])
     c.execute(p)
 
+##################################################################################################
+
+#get wanted info
+q = "SELECT ALL_STORY.story_id, STORY.story_id FROM ALL_STORY,STORY WHERE ALL_STORY.story_id=STORY.story_id"
+
+sel = c.execute(q)    #run SQL query
+
+
+
+
+##################################################################################################    
     
 db.commit() #save changes
 db.close()  #close database
+
+
+###########
+#TODO LIST
+# put everything into fxns
+# divide information pieces to feed into app.py
