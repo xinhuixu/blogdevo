@@ -26,3 +26,7 @@ def auth():
     if i == 0:
         return redirect(url_for("login"))
    return redirect(url_for("home"))
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
