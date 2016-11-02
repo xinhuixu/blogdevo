@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request, render_template, session, url_for
 import os
+from utils import db_builder
 
 app = Flask(__name__)
 app.secret_key = '\xf35{\x12\x1c\xc7;\xf0\xd1x\x8d8\xe7f\xa3'
