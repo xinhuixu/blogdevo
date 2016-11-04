@@ -1,8 +1,9 @@
+
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
 
-f="dumbbell.db"
+f="../data/dumbbell.db"
 
 db = sqlite3.connect(f) #open if f exists, otherwise create
 #c = db.cursor()    #facilitate db ops
@@ -75,6 +76,16 @@ def get_hash(username):
     else:
         return None
 
+def check(username):
+    c = db.cursor()
+    q = "SELECT author FROM USERS"
+    c.execute(q)
+    d = c.fetchall()
+    for n in d:
+        if(n==username):
+            return True
+    return False
+    
 ##################################################################################################
 def close():
     db.commit() #save changes
@@ -88,7 +99,7 @@ def go():
     story()
     close()
 
-go()
+#go()
 
 
 
