@@ -64,6 +64,13 @@ def hash(password):
 def add_content():
     return True
 
+@app.route("/story/")
+def story(id):
+    # title = db_builder.getTitle(id)
+    # content = db_builder.getLatestContent(id)
+    # return render_template("story.html", title = title, content = content, author = session['username'])
+    return True
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
