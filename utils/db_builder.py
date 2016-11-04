@@ -12,7 +12,7 @@ db = sqlite3.connect(f) #open if f exists, otherwise create
 def users():
     #make table the first
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS USERS (author TEXT, password TEXT)"
+    q = "CREATE TABLE IF NOT EXISTS users (author TEXT, password TEXT)"
     c.execute(q)    #run SQL query
     #d = c.fetchall()
     
@@ -21,7 +21,7 @@ def users():
 def all_story():
     #make table the second
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS ALL_STORY (story_id INTEGER, title TEXT, terminated BOOLEAN)"
+    q = "CREATE TABLE IF NOT EXISTS all_story (story_id INTEGER, title TEXT, terminated BOOLEAN)"
     c.execute(q)
     #d = c.fetchall()
 
@@ -30,7 +30,7 @@ def all_story():
 def story():    
     #make yet another table
     c = db.cursor()
-    q = "CREATE TABLE IF NOT EXISTS STORY (story_id INTEGER, author TEXT, content TEXT)"
+    q = "CREATE TABLE IF NOT EXISTS story (story_id INTEGER, author TEXT, content TEXT)"
     c.execute(q)
     #d = c.fetchall()
     
@@ -38,31 +38,43 @@ def story():
 ##################################################################################################
 
 #get wanted info
-#q = "SELECT ALL_STORY.story_id, STORY.story_id FROM ALL_STORY,STORY WHERE ALL_STORY.story_id=STORY.story_id"
+#q = "SELECT all_story.story_id, story.story_id FROM all_story,story WHERE all_story.story_id=story.story_id"
 
 #sel = c.execute(q)    #run SQL query
 #go()
 
 def add_user(author,password):
     c = db.cursor()
-    q = "INSERT INTO USERS VALUES("+author+","+password+")"
+    q = "INSERT INTO users VALUES ('"+author+"','"+password+"')" #(author,password) VALUES('"+author+"','"+password+"')"
     c.execute(q)
+
+add_user("nicole","abc")
 
 def add_new_story(story_id,title,author,content):
     terminated = 0
     c = db.cursor()
-    q = "INSERT INTO ALL_STORY VALUES("+story_id+","+title+","+terminated+")"
+    q = "INSERT INTO all_story VALUES("+str(story_id)+",'"+title+"',"+str(terminated)+")"
     c.execute(q)
     c = db.cursor()
-    q = "INSERT INTO STORY VALUES('%s','%s','%s')"%(story_id,author,content)
+    q = "INSERT INTO story (story_id,author,content) VALUES(%s,'%s','%s')"%(str(story_id),author,content)
     c.execute(q)
 
+#add_new_story(1,"story_title","nicole","this is story content")
+'''
+c = db.cursor()
+q = "SELECT * FROM users"
+d = c.fetchall()
+for n in d:
+    print n
+    print "n/a"
+'''
+    
 # 0 = false, 1 = true
 def get_prompts():
-    #q = "SELECT story_id FROM ALL_STORY WHERE terminated=0"
+    #q = "SELECT story_id FROM all_story WHERE terminated=0"
     #c.execute(q)
     c = db.cursor()
-    q = "SELECT * FROM ALL_STORY"
+    q = "SELECT * FROM all_story"
     c.execute(q)
     d = c.fetchall()
     for n in d:
@@ -72,13 +84,13 @@ def get_prompts():
 
 def get_hash(username):
     if check(username):
-        return USERS[username]
+        return users[username]
     else:
         return None
 
 def check(username):
     c = db.cursor()
-    q = "SELECT author FROM USERS"
+    q = "SELECT author FROM users"
     c.execute(q)
     d = c.fetchall()
     for n in d:
