@@ -10,29 +10,23 @@ db = sqlite3.connect(f) #open if f exists, otherwise create
 
 #################################################################################################
 def users():
-    #make table the first
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS users (author TEXT, password TEXT)"
     c.execute(q)    #run SQL query
-    #d = c.fetchall()
     
 
 ##################################################################################################
 def all_story():
-    #make table the second
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS all_story (story_id INTEGER, title TEXT, terminated BOOLEAN)"
     c.execute(q)
-    #d = c.fetchall()
 
     
 ##################################################################################################
 def story():    
-    #make yet another table
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS story (story_id INTEGER, author TEXT, content TEXT)"
     c.execute(q)
-    #d = c.fetchall()
     
 
 ##################################################################################################
@@ -43,12 +37,16 @@ def story():
 #sel = c.execute(q)    #run SQL query
 #go()
 
+# ret True if successfully added, False if username already exists
 def add_user(author,password):
-    c = db.cursor()
-    q = "INSERT INTO users VALUES ('"+author+"','"+password+"')" #(author,password) VALUES('"+author+"','"+password+"')"
-    c.execute(q)
+    if(check(author)):
+        c = db.cursor()
+        q = "INSERT INTO users VALUES ('"+author+"','"+password+"');" #(author,password) VALUES('"+author+"','"+password+"')"
+        c.execute(q)
+        return True
+    else:
+        return False
 
-add_user("nicole","abc")
 
 def add_new_story(story_id,title,author,content):
     terminated = 0
@@ -94,15 +92,17 @@ def check(username):
     c.execute(q)
     d = c.fetchall()
     for n in d:
-        if(n==username):
+        if(n[0]==username):
             return True
     return False
-    
+
 ##################################################################################################
+
 def close():
     db.commit() #save changes
     db.close()  #close database
 
+close()
 
 
 def go():
