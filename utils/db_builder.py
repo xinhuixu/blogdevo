@@ -3,7 +3,7 @@ import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
 
-f="data/dumbbell.db"
+f="../data/dumbbell.db"
 
 db = sqlite3.connect(f) #open if f exists, otherwise create
 #c = db.cursor()    #facilitate db ops
@@ -41,25 +41,28 @@ def story():
 def check(username):
     c = db.cursor()
     q = "SELECT author FROM users"
-    c.execute(q)
-    d = c.fetchall()
+    d = c.execute(q)
+    #d = c.fetchall()
     for n in d:
+        #print n
         if(n[0]==username):
             return True
     return False
-
+check("not")
+#print check("nicole")
+#print check("test")
 
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
-    if(check(author)):
+    if(not check(author)):
         c = db.cursor()
         q = "INSERT INTO users VALUES ('"+author+"','"+password+"');" #(author,password) VALUES('"+author+"','"+password+"')"
         c.execute(q)
         return True
     else:
         return False
-
-
+#add_user("nicole","abc")
+#add_user("test","abc")
 def add_new_story(story_id,title,author,content):
     terminated = 0
     c = db.cursor()
@@ -85,8 +88,8 @@ def get_prompts():
     #c.execute(q)
     c = db.cursor()
     q = "SELECT * FROM all_story"
-    c.execute(q)
-    d = c.fetchall()
+    d = c.execute(q)
+    #d = c.fetchall()
     for n in d:
         return n
   
@@ -104,20 +107,20 @@ def get_hash(username):
 
 ##################################################################################################
 
+def go():
+    users()
+    all_story()
+    story()
+    #close()
+
+#go()
+
 def close():
     db.commit() #save changes
     db.close()  #close database
 
 close()
 
-
-def go():
-    users()
-    all_story()
-    story()
-    close()
-
-#go()
 
 
 
