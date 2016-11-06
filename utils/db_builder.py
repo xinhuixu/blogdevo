@@ -37,6 +37,18 @@ def story():
 #sel = c.execute(q)    #run SQL query
 #go()
 
+
+def check(username):
+    c = db.cursor()
+    q = "SELECT author FROM users"
+    c.execute(q)
+    d = c.fetchall()
+    for n in d:
+        if(n[0]==username):
+            return True
+    return False
+
+
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
     if(check(author)):
@@ -81,20 +93,14 @@ def get_prompts():
 #print get_prompts()
 
 def get_hash(username):
-    if check(username):
-        return users[username]
+    c = db.cursor()
+    m = c.execute("SELECT * FROM users")
+    for a in m:
+        if a[0]==username:
+            return a[1]
     else:
         return None
-
-def check(username):
-    c = db.cursor()
-    q = "SELECT author FROM users"
-    c.execute(q)
-    d = c.fetchall()
-    for n in d:
-        if(n[0]==username):
-            return True
-    return False
+#print get_hash("nicole")
 
 ##################################################################################################
 
