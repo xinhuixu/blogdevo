@@ -3,14 +3,16 @@ import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
 
-f="data/dumbbell.db"
+#f="data/dumbbell.db"
 #f="../data/dumbbell.db"
 
-db = sqlite3.connect(f) #open if f exists, otherwise create
+#db = sqlite3.connect(f) #open if f exists, otherwise create
 #c = db.cursor()    #facilitate db ops
 
 #################################################################################################
 def users():
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS users (author TEXT, password TEXT)"
     c.execute(q)    #run SQL query
@@ -18,13 +20,17 @@ def users():
 
 ##################################################################################################
 def all_story():
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS all_story (story_id INTEGER, title TEXT, terminated BOOLEAN)"
     c.execute(q)
 
     
 ##################################################################################################
-def story():    
+def story():
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     c = db.cursor()
     q = "CREATE TABLE IF NOT EXISTS story (story_id INTEGER, author TEXT, content TEXT)"
     c.execute(q)
@@ -40,13 +46,15 @@ def story():
 
 
 def check(username):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT author FROM users"
     d = c.execute(q)
     #d = c.fetchall()
     for n in d:
         #print n
-        if(n[0]==username):
+        if(n == username):
             return True
     return False
 check("not")
@@ -55,6 +63,8 @@ check("not")
 
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     if(not check(author)):
         c = db.cursor()
         q = "INSERT INTO users VALUES ('"+author+"','"+password+"');" #(author,password) VALUES('"+author+"','"+password+"')"
@@ -65,6 +75,8 @@ def add_user(author,password):
 #add_user("nicole","abc")
 #add_user("test","abc")
 def add_new_story(story_id,title,author,content):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     terminated = 0
     c = db.cursor()
     q = "INSERT INTO all_story VALUES("+str(story_id)+",'"+title+"',"+str(terminated)+")"
@@ -85,6 +97,8 @@ for n in d:
     
 # 0 = false, 1 = true
 def get_prompts():
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     #q = "SELECT story_id FROM all_story WHERE terminated=0"
     #c.execute(q)
     c = db.cursor()
@@ -97,6 +111,8 @@ def get_prompts():
 #print get_prompts()
 
 def get_hash(username):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT * FROM users")
     for a in m:
@@ -117,6 +133,8 @@ def go():
 #go()
 
 def close():
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
     db.commit() #save changes
     db.close()  #close database
 

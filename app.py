@@ -21,6 +21,7 @@ def login():
 
 @app.route("/home/")
 def home():
+    print session
     return render_template("home.html") #stuff = "username"
 
 @app.route("/auth/", methods=["POST"])
@@ -53,9 +54,10 @@ def auth():
             flash("incorrect username and password combination")
             return redirect(url_for("login"))
 
-@app.route("/logout/")
+@app.route("/logout/", methods=["GET"])
 def logout():
-    session.pop("user")
+    if "logout" in request.args:
+        session.pop("user")
     return redirect(url_for("index"))
 
 def hashp(password):
