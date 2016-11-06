@@ -94,7 +94,15 @@ def add_new_story(story_id,title,author,content):
     c.execute(q)
     db.commit()
 
-
+def add_to_story(story_id,author,content):
+    f = "../data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "INSERT INTO story (story_id,author,content) VALUES(%s,'%s','%s')"%(str(story_id),author,content)
+    c.execute(q)
+    db.commit()
+#add_to_story(1,"author2","more content")
+    
 '''
 c = db.cursor()
 q = "SELECT * FROM users"
@@ -158,6 +166,19 @@ def get_title(story_id):
             return n[1]
     return False
 #print get_title(1)
+
+def get_update(story_id):
+    f = "../data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT story_id,author,content FROM story")
+    k = ""
+    for n in m:
+        if (n[0]==story_id):
+             k = "contributed by "+n[1]+": "+n[2]
+    return k
+#print get_update(1)
+    
 ##################################################################################################
 
 def go():
