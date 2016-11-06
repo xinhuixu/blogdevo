@@ -2,6 +2,10 @@
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
+# init tables: users(), all_story(), story()
+# check(username)
+# add_user(), add_new_story(), add_to_story()
+# get_story(), get_hash(), get_mystory(), get_title(), get_update()
 
 #f="data/dumbbell.db"
 #f="../data/dumbbell.db"
@@ -60,7 +64,7 @@ def check(username):
         if(n == username):
             return True
     return False
-check("not")
+#check("not")
 #print check("nicole")
 #print check("test")
 
@@ -103,15 +107,8 @@ def add_to_story(story_id,author,content):
     db.commit()
 #add_to_story(1,"author2","more content")
     
-'''
-c = db.cursor()
-q = "SELECT * FROM users"
-d = c.fetchall()
-for n in d:
-    print n
-    print "n/a"
-'''
-    
+########################################################################################################
+
 # 0 = false, 1 = true
 def get_story():
     f = "data/dumbbell.db"
@@ -160,7 +157,7 @@ def get_title(story_id):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    m = c.execute("SELECT story_id,title FROM all_story")
+    m = c.execute("SELECT story_id,title FROM all_story WHERE story_id="+str(story_id))
     for n in m:
         if (n[0]==story_id):
             return n[1]
@@ -199,9 +196,7 @@ def close():
 
 #add_new_story(1,"story_title","nicole","this is story content")
     
-close()
-
-
+#close()
 
 
 ###########
