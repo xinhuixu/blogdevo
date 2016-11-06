@@ -49,7 +49,7 @@ def story():
 
 
 def check(username):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT author FROM users"
@@ -82,7 +82,7 @@ def add_user(author,password):
 
 
 def add_new_story(story_id,title,author,content):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     terminated = 0
     c = db.cursor()
@@ -95,7 +95,7 @@ def add_new_story(story_id,title,author,content):
     db.commit()
 
 def add_to_story(story_id,author,content):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "INSERT INTO story (story_id,author,content) VALUES(%s,'%s','%s')"%(str(story_id),author,content)
@@ -114,7 +114,7 @@ for n in d:
     
 # 0 = false, 1 = true
 def get_story():
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     #q = "SELECT story_id FROM all_story WHERE terminated=0"
     #c.execute(q)
@@ -145,7 +145,7 @@ def get_hash(username):
 
 
 def get_mystory(username):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     #m = c.execute("SELECT all_story.story_id, story.story_id FROM all_story,story WHERE author="+username)
@@ -157,7 +157,7 @@ def get_mystory(username):
 #print get_mystory("nicole")    
 
 def get_title(story_id):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id,title FROM all_story")
@@ -168,14 +168,14 @@ def get_title(story_id):
 #print get_title(1)
 
 def get_update(story_id):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id,author,content FROM story")
     k = ""
     for n in m:
         if (n[0]==story_id):
-             k = "contributed by "+n[1]+": "+n[2]
+             k = n[2]+"\n by "+n[1]
     return k
 #print get_update(1)
     
@@ -190,7 +190,7 @@ def go():
 #go()
 
 def close():
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     db.commit() #save changes
     db.close()  #close database
