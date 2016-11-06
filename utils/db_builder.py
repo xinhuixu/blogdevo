@@ -152,7 +152,12 @@ def get_title(story_id):
     f = "../data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-
+    m = c.execute("SELECT story_id,title FROM all_story")
+    for n in m:
+        if (n[0]==story_id):
+            return n[1]
+    return False
+#print get_title(1)
 ##################################################################################################
 
 def go():
