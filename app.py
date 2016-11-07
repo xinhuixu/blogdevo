@@ -78,13 +78,14 @@ def add_content():
 @app.route("/story/<id1>")
 def story(id1):
     title = db_builder.get_title(id1)
-    content = db_builder.get_update(id1)
+    author= db_builder.get_author(id1)
     can_add = db_builder.check_cont(id1, session['username'])
+    content = db_builder.get_update(id1)
     if can_add:
-        return render_template("story.html", title = title, content = content, user = session['username'], author= db_builder.get_author(id1), can_add = can_add)
+        return render_template("story.html", title = title, content = content, user = session['username'], author = author, can_add = can_add)
     else:
         fstory = db_builder.get_contents(id1)
-        return render_template("story.html", title = title, content = fstory, user = session['username'], author = db_builder.get_author(id1), can_add = can_add)
+        return render_template("story.html", title = title, content = fstory, user = session['username'], author = author, can_add = can_add)
 
 if __name__ == "__main__":
     app.debug = True
