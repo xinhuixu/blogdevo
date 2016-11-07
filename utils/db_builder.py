@@ -69,6 +69,7 @@ def check_cont(story_id,username): #checks if user already contributed to a part
     return False
 
 
+
 # return dict of {title:story_ids} that a user can still contribute to
 def open_stories(username):
     f = "data/dumbbell.db"
@@ -205,19 +206,20 @@ def get_author(story_id):
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id, author FROM story")
-    print "id: " + story_id
+    #print "id: " + str(story_id)
     for n in m:
-        print n
-        print n[0]
-        print n[1]
+        #print n
+        #print n[0]
+        #print n[1]
         if (n[0]==story_id):
             return n[1]
     return 0
+#print get_author(1)
 
 
 #returns a list of the contents of a story [[content,author],[content,author],...]
 def get_contents(story_id):
-    f = "../data/dumbbell.db"
+    f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT author,content FROM story WHERE story_id="+str(story_id))
@@ -225,7 +227,7 @@ def get_contents(story_id):
     for n in m:
         d.append([n[1],n[0]])
     return d
-print get_contents(1)
+
 
 
 ##################################################################################################
@@ -244,5 +246,5 @@ def close():
     db.close()  #close database
 
     
-#close()
+close()
 
