@@ -49,6 +49,21 @@ def check(username):
 
 
 
+#True: already contributed, False: has not contributed
+def check2(story_id,username): #checks if user already contributed to a particular story
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "SELECT author FROM story WHERE story_id="+str(story_id)
+    d = c.execute(q)
+    for n in d:
+        if(n[0] == username):
+            return True
+    db.close()
+    return False
+
+
+
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
     f = "data/dumbbell.db"
@@ -65,7 +80,7 @@ def add_user(author,password):
 
 
 
-def add_new_story(story_id,title,author,content):
+def new_story(story_id,title,author,content):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     terminated = 0
