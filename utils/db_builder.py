@@ -69,18 +69,19 @@ def check_cont(story_id,username): #checks if user already contributed to a part
     return False
 
 
-# return list of story_ids that a user can still contribute to
+# return dict of {title:story_ids} that a user can still contribute to
 def open_stories(username):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "SELECT story.story_id, content FROM all_story, story WHERE story.story_id = all_story.story_id"
-    d = c.execute(q)
-    a = []
-    for n in d:
+    #q = "SELECT story.story_id, title FROM all_story, story WHERE story.story_id = all_story.story_id"
+    q = "SELECT story_id, title FROM all_story"#, story WHERE story.story_id = all_story.story_id"
+    m = c.execute(q)
+    d = {}
+    for n in m:
         if(check_cont(n[0],username)):
-            a.append(n[1])
-    return a
+            d[n[1]] = n[0]
+    return d
 
 
 
