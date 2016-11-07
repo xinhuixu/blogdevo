@@ -56,14 +56,14 @@ def check(username):
     d = c.execute(q)
     #d = c.fetchall()
     for n in d:
-        print n
+ #       print n
         if(n[0] == username):
             return True
     db.close()
     return False
-print check("not")
-print check("nicole")
-print check("test")
+#print check("not")
+#print check("nicole")
+#print check("test")
 
 # ret True if successfully added, False if username already exists
 def add_user(author,password):

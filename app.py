@@ -24,7 +24,7 @@ def login():
 
 @app.route("/home/")
 def home():
-    print session
+    print '!SESSION_STATUS: ' + session['username']
     return render_template("home.html") #stuff = "username"
 
 @app.route("/auth/", methods=["POST"])
@@ -65,7 +65,7 @@ def logout():
             session.pop('username')
         except:
             return 'logout error'
-    return redirect(url_for('login'))
+    return redirect(url_for('index'))
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
