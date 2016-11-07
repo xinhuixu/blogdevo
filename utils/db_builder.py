@@ -69,6 +69,20 @@ def check_cont(story_id,username): #checks if user already contributed to a part
     return False
 
 
+# return list of story_ids that a user can still contribute to
+def open_stories(username):
+    f = "../data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "SELECT story_id FROM all_story"
+    d = c.execute(q)
+    a = []
+    for n in d:
+        if(check_cont(n[0],username)):
+            a.append(n[0])
+    return a
+
+
 
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
@@ -212,5 +226,5 @@ def close():
     db.close()  #close database
 
     
-close()
+#close()
 
