@@ -23,14 +23,11 @@ def login():
         #return redirect(url_for("home"))
     return render_template("login.html")
 
-@app.route("/home/", methods=["GET"])
+@app.route("/home/")
 def home():
     print '!SESSION_STATUS: ' + session['username']
     l = db_builder.open_stories(session['username'])
     ml = db_builder.get_mystory(session['username'])
-    if "new_story" in request.args:
-        new_story(db_builder.ctr())
-        return redirect(url_for("home"))
     return render_template("home.html", stories = l, my_stories = ml) 
 
 @app.route("/auth/", methods=["POST"])
@@ -79,8 +76,10 @@ def hashp(password):
 def add_content(id1):
     db_builder.add_to_story(id1,session['username'],request.form["add_content"])
 
-def new_story(id1):
-    db_builder.new_story(id1, session['username'], request.args["add_content"])
+@app.route("/new_story/", methods=["GET"])
+def new_story():
+    db_builder.new_story(db_builder.ctr(), request.args["title"], session['username'], request.args["content"])
+    return redirect(url_for("home"))
 
 @app.route("/story/<int:id1>")
 def story(id1):
