@@ -26,7 +26,7 @@ def login():
 @app.route("/home/")
 def home():
     print '!SESSION_STATUS: ' + session['username']
-    l = open_stories(session['username'])
+    l = db_builder.open_stories(session['username'])
     return render_template("home.html", stories = l) 
 
 @app.route("/auth/", methods=["POST"])

@@ -74,12 +74,12 @@ def open_stories(username):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
-    q = "SELECT story_id FROM all_story"
+    q = "SELECT story.story_id, content FROM all_story, story WHERE story.story_id = all_story.story_id"
     d = c.execute(q)
     a = []
     for n in d:
         if(check_cont(n[0],username)):
-            a.append(n[0])
+            a.append(n[1])
     return a
 
 
