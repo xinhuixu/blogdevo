@@ -26,7 +26,7 @@ def login():
 @app.route("/home/")
 def home():
     print '!SESSION_STATUS: ' + session['username']
-    l = open_stories(session['username'])
+    l = db_builder.open_stories(session['username'])
     return render_template("home.html", stories = l) 
 
 @app.route("/auth/", methods=["POST"])
@@ -85,6 +85,7 @@ def story(id):
     else:
         fstory = db_builder.get_contents(id)
         return render_template("story.html", title = title, content = fstory, author = session['username'], can_add = False)
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
