@@ -49,6 +49,41 @@ def check(username):
 
 
 
+#True: has not contributed & story open, False: has already contributed or story closed
+def check_cont(story_id,username): #checks if user already contributed to a particular story
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "SELECT author FROM story WHERE story_id="+str(story_id)
+    d = c.execute(q)
+    for n in d:
+        if(n[0] == username):
+            return False
+    c = db.cursor()
+    q = "SELECT story_id FROM all_story WHERE terminated=0"
+    d = c.execute(q)
+    for n in d:
+        if(n[0] == story_id):
+            return True
+    db.close()
+    return False
+
+
+# return list of story_ids that a user can still contribute to
+def open_stories(username):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    q = "SELECT story_id FROM all_story"
+    d = c.execute(q)
+    a = []
+    for n in d:
+        if(check_cont(n[0],username)):
+            a.append(n[0])
+    return a
+
+
+
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
     f = "data/dumbbell.db"
@@ -65,7 +100,7 @@ def add_user(author,password):
 
 
 
-def add_new_story(story_id,title,author,content):
+def new_story(story_id,title,author,content):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     terminated = 0
@@ -172,6 +207,19 @@ def get_author(story_id):
     for n in m:
         if (n[0]==story_id):
             return n[1]
+
+
+
+#returns a dictionary of contents of a story {author:content}
+def get_contents(story_id):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT author,content FROM story WHERE story_id="+str(story_id))
+    d = {}
+    for n in m:
+        d[n[0]]=n[1]
+    return d
 
 
 
