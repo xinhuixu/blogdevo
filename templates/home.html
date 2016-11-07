@@ -17,15 +17,17 @@
     <div class="new_story">
       <h3>publish your new story:</h3>
       <form action="/new_story/">
-	<input type="text" name="title" placeholder="title">
+	<textarea cols="50" name="title" placeholder="title"></textarea>
 	<br>
-	<input type="text" name="content" placeholder="content">
+	<textarea cols="50" rows="15" name="content" row="40" placeholder="content"></textarea>
+	<br>
       </form>
     </div>
 
     <div>
-      {{stories}}
-
+      {% for title in stories%}
+        <a href="/story/{{ stories[title] }}">{{ title }}</a><br>
+      {% endfor %}
     </div>
   </body>
 </html>

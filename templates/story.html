@@ -10,7 +10,7 @@
 
     <div class="logout">
     <form action="/logout/">
-      <input type="submit" name="logout">
+      <input type="submit" name="logout" value="logout">
     </form>
     </div>
     
@@ -29,7 +29,7 @@
      <p>{{content}}</p>
    </div>
 
-   {% if can_add %}
+   {% if (can_add == True) %}
    <form action="/add_content/" method="POST">
      <input type="text" name="new_content" cols="40" rows="8">
      <br>
