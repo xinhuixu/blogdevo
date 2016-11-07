@@ -180,10 +180,11 @@ def get_title(story_id):
     m = c.execute("SELECT story_id,title FROM all_story")
     for n in m:
         if (n[0]==story_id):
-            db.close()
+            #db.close()
             return n[1]
-    db.close()
+    #db.close()
     return False
+#print get_title(1)
 
 
 
