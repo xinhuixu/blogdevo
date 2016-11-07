@@ -81,8 +81,10 @@ def story(id):
     content = db_builder.get_update(id)
     full = db_builder.check_cont(id, session['username'])
     if full:
-        return render_template("story.html", title = title, content = content, author = session['username'])
-
+        return render_template("story.html", title = title, content = content, author = session['username'], can_add = True)
+    else:
+        fstory = db_builder.get_contents(id)
+        return render_template("story.html", title = title, content = fstory, author = session['username'], can_add = False)
 if __name__ == "__main__":
     app.debug = True
     app.run()
