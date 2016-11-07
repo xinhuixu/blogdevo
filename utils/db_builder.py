@@ -197,11 +197,9 @@ def get_author(story_id):
     m = c.execute("SELECT story_id, author FROM story")
     for n in m:
         if (n[0]==story_id):
-            author = n[1];
-            break;
-    db.close()
-    return author
-                                                   
+            return n[1]
+
+#print get_author(1)                                                               
 
 ##################################################################################################
 
