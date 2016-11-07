@@ -189,7 +189,20 @@ def get_update(story_id):
     db.close()
     return k
 #print get_update(1)
-    
+
+def get_author(story_id):
+    f = "data/dumbbell.db"
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    m = c.execute("SELECT story_id, author FROM story")
+    for n in m:
+        if (n[0]==story_id):
+            author = n[1];
+            break;
+    db.close()
+    return author
+                                                   
+
 ##################################################################################################
 
 def go():
