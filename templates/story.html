@@ -17,6 +17,9 @@
    <div class="title">
      <h1>{{title}}</h1>
    </div>
+   <div class="author">
+     <h3>by {{author}}</h3>
+   </div>
    
    {% block owner %}
 
@@ -25,12 +28,14 @@
    <div class="content">
      <p>{{content}}</p>
    </div>
-   
+
+   {% if can_add %}
    <form action="/add_content/" method="POST">
      <input type="text" name="new_content" cols="40" rows="8">
      <br>
      <input type="submit" name="submit">
    </form>
+   {% endif %}
 
   </body>
 </html>
