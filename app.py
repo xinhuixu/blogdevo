@@ -26,7 +26,8 @@ def login():
 @app.route("/home/")
 def home():
     print '!SESSION_STATUS: ' + session['username']
-    return render_template("home.html") #stuff = "username"
+    l = open_stories(session['username'])
+    return render_template("home.html", stories = l) 
 
 @app.route("/auth/", methods=["POST"])
 def auth():
@@ -74,12 +75,13 @@ def hashp(password):
 def add_content():
     return True
 
-@app.route("/story/")
+@app.route("/story/<id>")
 def story(id):
-    # title = db_builder.getTitle(id)
-    # content = db_builder.getLatestContent(id)
-    # return render_template("story.html", title = title, content = content, author = session['username'])
-    return True
+    title = db_builder.get_title(id)
+    content = db_builder.get_update(id)
+    full = db_builder.check_cont(id, session['username'])
+    if full:
+        return render_template("story.html", title = title, content = content, author = session['username'])
 
 if __name__ == "__main__":
     app.debug = True
