@@ -238,8 +238,8 @@ def get_contents(story_id):
 def ctr():
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
-    c = db.cursor
-    m = c.execute("SELECT * FROM all_stories")
+    c = db.cursor()
+    m = c.execute("SELECT * FROM all_story")
     count = 0
     for n in m:
         count += 1
