@@ -78,7 +78,7 @@ def story(id):
     title = db_builder.get_title(id)
     content = db_builder.get_update(id)
     user = session['username']
-    if user = db_builder.get_author(id):
+    if (user == db_builder.get_author(id)):
         return render_template("edit.html", title = title, content = content, author = user)
     else:
         return render_template("story.html", title = title, content = content, author = user)
