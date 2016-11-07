@@ -7,6 +7,7 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = '\xf35{\x12\x1c\xc7;\xf0\xd1x\x8d8\xe7f\xa3'
 
+
 @app.route("/")
 def index():
     if 'username' in session:
@@ -30,7 +31,7 @@ def home():
 @app.route("/auth/", methods=["POST"])
 def auth():
     ## register
-    print request.form
+    #print request.form
     if "register" in request.form:
         if (request.form["username"] == "" or request.form["password"] == ""):
             flash("please fill in all forms of info")
@@ -75,14 +76,11 @@ def add_content():
 
 @app.route("/story/")
 def story(id):
-    title = db_builder.get_title(id)
-    content = db_builder.get_update(id)
-    user = session['username']
-    if (user == db_builder.get_author(id)):
-        return render_template("edit.html", title = title, content = content, author = user)
-    else:
-        return render_template("story.html", title = title, content = content, author = user)
-    
+    # title = db_builder.getTitle(id)
+    # content = db_builder.getLatestContent(id)
+    # return render_template("story.html", title = title, content = content, author = session['username'])
+    return True
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
