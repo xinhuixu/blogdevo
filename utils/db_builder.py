@@ -217,15 +217,15 @@ def get_author(story_id):
 
 #returns a list of the contents of a story [[content,author],[content,author],...]
 def get_contents(story_id):
-    f = "data/dumbbell.db"
+    f = "../data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT author,content FROM story WHERE story_id="+str(story_id))
     d = []
     for n in m:
-        a.append([n[1],n[0]])
+        d.append([n[1],n[0]])
     return d
-
+print get_contents(1)
 
 
 ##################################################################################################
@@ -244,5 +244,5 @@ def close():
     db.close()  #close database
 
     
-close()
+#close()
 
