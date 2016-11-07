@@ -73,8 +73,11 @@ def logout():
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
-def add_content(id1):
-    db_builder.add_to_story(id1,session['username'],request.form["add_content"])
+@app.route("/add_content/", methods=["GET"])
+def add_content():
+    db_builder.add_to_story(session['story_id'],session['username'],request.args["new_content"])
+    session.pop('story_id')
+    return redirect(url_for("home"))
 
 @app.route("/new_story/", methods=["GET"])
 def new_story():
@@ -87,6 +90,7 @@ def story(id1):
     author= db_builder.get_author(id1)
     can_add = db_builder.check_cont(id1, session['username'])
     content = db_builder.get_update(id1)
+    session['story_id'] = id1
     if can_add:
         return render_template("story.html", title = title, content = content, user = session['username'], author = author, can_add = can_add)
     else:
