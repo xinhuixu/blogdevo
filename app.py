@@ -72,10 +72,14 @@ def logout():
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
 
-def add_content():
-    return True
+def add_content(id1):
+    if "add_content" in request.form:
+        db_builder.add_to_story(id1,session['username'],request.form["add_content"])
 
-@app.route("/story/<id1>")
+def new_story():
+    if "new_story"
+
+@app.route("/story/<id1>", methods=["POST"])
 def story(id1):
     title = db_builder.get_title(id1)
     content = db_builder.get_update(id1)
