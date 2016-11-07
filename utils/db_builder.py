@@ -164,10 +164,10 @@ def get_mystory(username):
     db = sqlite3.connect(f)
     c = db.cursor()
     #m = c.execute("SELECT all_story.story_id, story.story_id FROM all_story,story WHERE author="+username)
-    m = c.execute("SELECT story_id FROM story WHERE author='"+username+"'")
-    a = []
+    m = c.execute("SELECT story.story_id, title FROM all_story, story WHERE author='"+username+"'")
+    a = {}
     for n in m:
-        a.append(n[0])
+        a[n[1]]=n[0]
     db.close()
     return a
 
