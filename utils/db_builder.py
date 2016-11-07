@@ -49,9 +49,9 @@ def check(username):
 
 
 
-#True: has not contributed, False: has already contributed
+#True: has not contributed & story open, False: has already contributed or story closed
 def check_cont(story_id,username): #checks if user already contributed to a particular story
-    f = "data/dumbbell.db"
+    f = "../data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT author FROM story WHERE story_id="+str(story_id)
@@ -59,8 +59,14 @@ def check_cont(story_id,username): #checks if user already contributed to a part
     for n in d:
         if(n[0] == username):
             return False
+    c = db.cursor()
+    q = "SELECT story_id FROM all_story WHERE terminated=0"
+    d = c.execute(q)
+    for n in d:
+        if(n[0] == story_id):
+            return True
     db.close()
-    return True
+    return False
 
 
 
