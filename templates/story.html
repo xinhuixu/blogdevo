@@ -24,18 +24,21 @@
    {% block owner %}
 
    {% endblock %}
+
    
    <div class="content">
-     <p>{{content}}</p>
+     {% for author in content %}
+       <p>{{content[author]}}</p>
+       <p><i>- {{author}}</i></p>
+     {% endfor %}
    </div>
 
-   {% if (can_add == True) %}
    <form action="/add_content/" method="POST">
-     <input type="text" name="new_content" cols="40" rows="8">
+     <textarea name="new_content" cols="50" rows="10"></textarea>
      <br>
-     <input type="submit" name="submit">
+     <input type="submit" name="submit" value="submit">
    </form>
-   {% endif %}
+   
 
   </body>
 </html>

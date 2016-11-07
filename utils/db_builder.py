@@ -208,7 +208,7 @@ def get_author(story_id):
     for n in m:
         if (n[0]==story_id):
             return n[1]
-
+    return 0
 
 
 #returns a dictionary of contents of a story {author:content}
