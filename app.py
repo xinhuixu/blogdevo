@@ -23,16 +23,15 @@ def login():
         #return redirect(url_for("home"))
     return render_template("login.html")
 
-@app.route("/home/", methods=["POST"])
+@app.route("/home/", methods=["GET"])
 def home():
     print '!SESSION_STATUS: ' + session['username']
     l = db_builder.open_stories(session['username'])
-    if "new_story" in request.form:
+    ml = db_builder.get_mystory(session['username'])
+    if "new_story" in request.args:
         new_story(db_builder.ctr())
         return redirect(url_for("home"))
-    if "my_stories" in request.form:
-        l = db_builder.get_mystory(session['username'])
-    return render_template("home.html", stories = l) 
+    return render_template("home.html", stories = l, my_stories = ml) 
 
 @app.route("/auth/", methods=["POST"])
 def auth():
@@ -81,7 +80,7 @@ def add_content(id1):
     db_builder.add_to_story(id1,session['username'],request.form["add_content"])
 
 def new_story(id1):
-    db_builder.new_story(id1, session['username'], request.form["add_content"])
+    db_builder.new_story(id1, session['username'], request.args["add_content"])
 
 @app.route("/story/<int:id1>")
 def story(id1):
