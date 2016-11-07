@@ -80,7 +80,7 @@ def new_story(id1):
     if "new_story" in request.form:
         db_builder.new_story(id1, session['username'], request.form["add_content"])
 
-@app.route("/story/<id1>", methods=["POST"])
+@app.route("/story/<id1>")
 def story(id1):
     title = db_builder.get_title(id1)
     author= db_builder.get_author(id1)
