@@ -188,21 +188,24 @@ def get_title(story_id):
 
 
 
+# latest [content, author]
 def get_update(story_id):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id,author,content FROM story")
-    k = []
+    k = ["",""]
     for n in m:
         if (n[0]==story_id):
-             k.append(n[2])
-             k.append(n[1])
-             break
+            #k.append(n[2])
+            #k.append(n[1])
+            #break
+            k[0] = n[2]
+            k[1] = n[1]
     db.close()
     return k
 
-
+print get_update(1)
 
 def get_author(story_id):
     f = "data/dumbbell.db"
