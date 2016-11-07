@@ -75,15 +75,15 @@ def hashp(password):
 def add_content():
     return True
 
-@app.route("/story/<id>")
-def story(id):
-    title = db_builder.get_title(id)
-    content = db_builder.get_update(id)
-    full = db_builder.check_cont(id, session['username'])
+@app.route("/story/<id1>")
+def story(id1):
+    title = db_builder.get_title(id1)
+    content = db_builder.get_update(id1)
+    full = db_builder.check_cont(id1, session['username'])
     if full:
         return render_template("story.html", title = title, content = content, author = session['username'], can_add = True)
     else:
-        fstory = db_builder.get_contents(id)
+        fstory = db_builder.get_contents(id1)
         return render_template("story.html", title = title, content = fstory, author = session['username'], can_add = False)
 
 if __name__ == "__main__":
