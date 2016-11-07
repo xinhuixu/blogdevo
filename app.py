@@ -76,8 +76,9 @@ def add_content(id1):
     if "add_content" in request.form:
         db_builder.add_to_story(id1,session['username'],request.form["add_content"])
 
-def new_story():
-    if "new_story"
+def new_story(id1):
+    if "new_story" in request.form:
+        db_builder.new_story(id1, session['username'], request.form["add_content"])
 
 @app.route("/story/<id1>", methods=["POST"])
 def story(id1):
