@@ -205,7 +205,11 @@ def get_author(story_id):
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id, author FROM story")
+    print "id: " + story_id
     for n in m:
+        print n
+        print n[0]
+        print n[1]
         if (n[0]==story_id):
             return n[1]
     return 0
