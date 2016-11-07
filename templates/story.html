@@ -15,7 +15,7 @@
     </div>
     
    <div class="title">
-     <h1>story title</h1>
+     <h1>{{title}}</h1>
    </div>
    
    {% block owner %}
@@ -23,7 +23,7 @@
    {% endblock %}
    
    <div class="content">
-     <p>latest update</p>
+     <p>{{content}}</p>
    </div>
    
    <form action="/add_content/" method="POST">
