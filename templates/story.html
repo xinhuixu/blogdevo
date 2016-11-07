@@ -10,7 +10,7 @@
 
     <div class="logout">
     <form action="/logout/">
-      <input type="submit" name="logout">
+      <input type="submit" name="logout" value="logout">
     </form>
     </div>
     
@@ -24,18 +24,21 @@
    {% block owner %}
 
    {% endblock %}
+
    
    <div class="content">
-     <p>{{content}}</p>
+     {% for ac in content %}
+       <p>{{ac[0]}}</p>
+       <p><i>- {{ac[1]}}</i></p>
+     {% endfor %}
    </div>
 
-   {% if can_add %}
    <form action="/add_content/" method="POST">
-     <input type="text" name="new_content" cols="40" rows="8">
+     <textarea name="new_content" cols="50" rows="10"></textarea>
      <br>
-     <input type="submit" name="submit">
+     <input type="submit" name="submit" value="submit">
    </form>
-   {% endif %}
+   
 
   </body>
 </html>
