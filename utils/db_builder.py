@@ -164,14 +164,16 @@ def get_mystory(username):
     db = sqlite3.connect(f)
     c = db.cursor()
     #m = c.execute("SELECT all_story.story_id, story.story_id FROM all_story,story WHERE author="+username)
-    m = c.execute("SELECT all_story.story_id, title FROM all_story, story WHERE author='"+username+"'")
+    m = c.execute("SELECT story.story_id, title, author FROM all_story, story WHERE story.story_id=all_story.story_id and author='"+username+"'")
     a = {}
     for n in m:
-        print n
-        a[n[1]]=n[0]
-    db.close()
+        #print n
+        #print n[2]
+        if(n[2]==username):
+            a[n[1]]=n[0]
+        #db.close()
     return a
-
+#print get_mystory("nicole")
 
 
 def get_title(story_id):
@@ -206,7 +208,7 @@ def get_update(story_id):
     db.close()
     return k
 
-print get_update(1)
+#print get_update(1)
 
 def get_author(story_id):
     f = "data/dumbbell.db"
