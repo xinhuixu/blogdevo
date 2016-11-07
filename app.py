@@ -9,14 +9,17 @@ app.secret_key = '\xf35{\x12\x1c\xc7;\xf0\xd1x\x8d8\xe7f\xa3'
 
 @app.route("/")
 def index():
-    for user in session:
+    if 'username' in session:
+        username = session['username']
+        print '!SESSION_STATUS: ' + username
         return redirect(url_for("home"))
+    print '!SESSION_STATUS: session is empty'
     return redirect(url_for("login"))
 
 @app.route("/login/")
 def login():
-    for user in session:
-        return redirect(url_for("home"))
+    #for user in session:
+        #return redirect(url_for("home"))
     return render_template("login.html")
 
 @app.route("/home/")
@@ -46,9 +49,10 @@ def auth():
         if (not (db_builder.check(request.form['username']))):
             flash("username does not exist") 
             return redirect(url_for("login"))
-        elif (db_builder.getHash(user1) == request.form['password']):
+        elif (db_builder.get_hash(request.form['username']) == request.form['password']):
             user1 = request.form['username']
-            session["user"] = user1
+            session['username'] = user1
+            print '!SESSION_STATUS: ' + session['username']
             return redirect(url_for("home"))
         else:
             flash("incorrect username and password combination")
@@ -57,8 +61,11 @@ def auth():
 @app.route("/logout/", methods=["GET"])
 def logout():
     if "logout" in request.args:
-        session.pop("user")
-    return redirect(url_for("index"))
+        try:
+            session.pop('username')
+        except:
+            return 'logout error'
+    return redirect(url_for('login'))
 
 def hashp(password):
     return hashlib.sha512(password).hexdigest()
