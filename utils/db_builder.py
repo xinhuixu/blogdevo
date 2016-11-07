@@ -1,13 +1,7 @@
-
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
-
 #f="data/dumbbell.db"
-#f="../data/dumbbell.db"
-
-#db = sqlite3.connect(f) #open if f exists, otherwise create
-#c = db.cursor()    #facilitate db ops
 
 #################################################################################################
 def users():
@@ -41,29 +35,19 @@ def story():
 
 ##################################################################################################
 
-#get wanted info
-#q = "SELECT all_story.story_id, story.story_id FROM all_story,story WHERE all_story.story_id=story.story_id"
-
-#sel = c.execute(q)    #run SQL query
-#go()
-
-
 def check(username):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     q = "SELECT author FROM users"
     d = c.execute(q)
-    #d = c.fetchall()
     for n in d:
- #       print n
         if(n[0] == username):
             return True
     db.close()
     return False
-#print check("not")
-#print check("nicole")
-#print check("test")
+
+
 
 # ret True if successfully added, False if username already exists
 def add_user(author,password):
@@ -78,9 +62,7 @@ def add_user(author,password):
         return True
     else:
         return False
-    
-#add_user("nicole","abc")
-#add_user("test","abc")
+
 
 
 def add_new_story(story_id,title,author,content):
@@ -97,6 +79,8 @@ def add_new_story(story_id,title,author,content):
     db.commit()
     db.close()
 
+
+    
 def add_to_story(story_id,author,content):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
@@ -105,35 +89,23 @@ def add_to_story(story_id,author,content):
     c.execute(q)
     db.commit()
     db.close()
-#add_to_story(1,"author2","more content")
-    
-'''
-c = db.cursor()
-q = "SELECT * FROM users"
-d = c.fetchall()
-for n in d:
-    print n
-    print "n/a"
-'''
-    
+
+
+
 # 0 = false, 1 = true
 def get_story():
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
-    #q = "SELECT story_id FROM all_story WHERE terminated=0"
-    #c.execute(q)
     c = db.cursor()
     q = "SELECT * FROM all_story"
     d = c.execute(q)
-    #d = c.execute(".mode html")
-    #d = c.fetchall()
     a = []
     for n in d:
         a.append(n)
     db.close()
     return a
   
-#print get_story()
+
 
 def get_hash(username):
     f = "data/dumbbell.db"
@@ -147,7 +119,6 @@ def get_hash(username):
     else:
         db.close()
         return None
-#print get_hash("nicole")
 
 
 
@@ -162,7 +133,8 @@ def get_mystory(username):
         a.append(n[0])
     db.close()
     return a
-#print get_mystory("nicole")    
+
+
 
 def get_title(story_id):
     f = "data/dumbbell.db"
@@ -175,7 +147,8 @@ def get_title(story_id):
             return n[1]
     db.close()
     return False
-#print get_title(1)
+
+
 
 def get_update(story_id):
     f = "data/dumbbell.db"
@@ -188,7 +161,8 @@ def get_update(story_id):
              k = n[2]+"\n by "+n[1]
     db.close()
     return k
-#print get_update(1)
+
+
 
 def get_author(story_id):
     f = "data/dumbbell.db"
@@ -199,7 +173,7 @@ def get_author(story_id):
         if (n[0]==story_id):
             return n[1]
 
-#print get_author(1)                                                               
+
 
 ##################################################################################################
 
@@ -207,7 +181,6 @@ def go():
     users()
     all_story()
     story()
-    #close()
 
 #go()
 
@@ -217,19 +190,6 @@ def close():
     db.commit() #save changes
     db.close()  #close database
 
-
-
-#add_new_story(1,"story_title","nicole","this is story content")
     
 close()
 
-
-
-
-###########
-#TODO LIST
-# put everything into fxns
-# divide information pieces to feed into app.py
-# get_hash(username)
-# check(username) in db
-#get_mystory, get_title, get_update (latest entry to be displayed in /story)
