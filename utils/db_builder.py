@@ -193,10 +193,12 @@ def get_update(story_id):
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT story_id,author,content FROM story")
-    k = ""
+    k = []
     for n in m:
         if (n[0]==story_id):
-             k = n[2]+"\n by "+n[1]
+             k.append(n[2])
+             k.append(n[1])
+             break
     db.close()
     return k
 

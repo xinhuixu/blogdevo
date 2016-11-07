@@ -25,20 +25,24 @@
 
    {% endblock %}
 
-   
+   {% if can_add == False %}
    <div class="content">
      {% for ac in content %}
        <p>{{ac[0]}}</p>
        <p><i>- {{ac[1]}}</i></p>
      {% endfor %}
    </div>
-
+   {% else %}
+   <div class="content">
+    <p>{{content[0]}}</p>
+    <p><i>- {{content[1]}}</i></p>
+   </div>
    <form action="/add_content/" method="POST">
      <textarea name="new_content" cols="50" rows="10"></textarea>
      <br>
      <input type="submit" name="submit" value="submit">
    </form>
-   
+   {% endif %}
 
   </body>
 </html>
