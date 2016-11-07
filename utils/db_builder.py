@@ -49,8 +49,8 @@ def check(username):
 
 
 
-#True: already contributed, False: has not contributed
-def check2(story_id,username): #checks if user already contributed to a particular story
+#True: has not contributed, False: has already contributed
+def check_cont(story_id,username): #checks if user already contributed to a particular story
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
@@ -58,9 +58,9 @@ def check2(story_id,username): #checks if user already contributed to a particul
     d = c.execute(q)
     for n in d:
         if(n[0] == username):
-            return True
+            return False
     db.close()
-    return False
+    return True
 
 
 
