@@ -211,15 +211,15 @@ def get_author(story_id):
     return 0
 
 
-#returns a dictionary of contents of a story {author:content}
+#returns a list of the contents of a story [[content,author],[content,author],...]
 def get_contents(story_id):
     f = "data/dumbbell.db"
     db = sqlite3.connect(f)
     c = db.cursor()
     m = c.execute("SELECT author,content FROM story WHERE story_id="+str(story_id))
-    d = {}
+    d = []
     for n in m:
-        d[n[0]]=n[1]
+        a.append([n[1],n[0]])
     return d
 
 
